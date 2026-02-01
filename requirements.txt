@@ -1,0 +1,6 @@
+docling>=2.70.0
+streamlit>=1.30.0
+pandas>=2.0.0
+ollama>=0.4.0
+streamlit-aggrid>=0.3.4
+openpyxl>=3.1.0

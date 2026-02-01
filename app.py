@@ -30,10 +30,10 @@ DOCUMENT_TYPES = {
     ],
     "UK-PAYE-Payslip": [
         "employer_name", "employee_name", "national_insurance_number", 
-        "tax_code", "pay_date", "gross_pay", "basic_pay", 
+        "tax_code", "pay_date", "gross_pay", "basic_pay", "bonus",
         "paye_tax_withheld", "national_insurance_employee",
         "pension_contribution_employee", "student_loan_deduction",
-        "net_pay", "ytd_gross_pay", "ytd_paye_tax"
+        "net_pay", "ytd_gross_pay", "ytd_paye_tax", "pension"
     ],
     "UK-P60": [
         "employer_name", "employee_name", "national_insurance_number",

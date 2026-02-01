@@ -12,6 +12,9 @@ class TaxDocumentParser:
         pipeline_options = PdfPipelineOptions()
         pipeline_options.do_ocr = True
         pipeline_options.do_table_structure = True
+
+        print(f"OCR enabled: {pipeline_options.do_ocr}")
+        print(f"   Table structure enabled: {pipeline_options.do_table_structure}")
         
         self.converter = DocumentConverter(
             format_options={
@@ -20,6 +23,7 @@ class TaxDocumentParser:
                 )
             }
         )
+        print("✅ DocumentConverter initialized with OCR")
     
     def parse_document(self, file_path: str) -> dict:
         """Parse a document and return structured content."""

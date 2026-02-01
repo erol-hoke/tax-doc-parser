@@ -156,7 +156,7 @@ if uploaded_files and fields_to_extract:
 if st.session_state.extracted_data:
     st.header("📊 Extracted Data")
     df = pd.DataFrame(st.session_state.extracted_data)
-    st.dataframe(df, use_container_width=True)
+    st.dataframe(df, width='content')
     
     # Export
     st.header("💾 Export")

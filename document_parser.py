@@ -27,16 +27,30 @@ class TaxDocumentParser:
     
     def parse_document(self, file_path: str) -> dict:
         """Parse a document and return structured content."""
+        print(f"📄 Parsing: {file_path}")
         result = self.converter.convert(file_path)
+
+        markdown = result.document.export_to_markdown()
+        text_items = []
+        if hasattr(result.document, 'texts'):
+            for item in result.document.texts:
+                if item.text:
+                    text_items.append(item.text)
+        
+        all_text = "\n".join(text_items)
+        
+        print(f"   Markdown length: {len(markdown)}")
+        print(f"   Text items found: {len(text_items)}")
+        print(f"   First 200 chars: {all_text[:200] if all_text else markdown[:200]}")
+        
+        # Use text_items if markdown just shows images
+        final_output = all_text if all_text else markdown
         
         return {
-            "markdown": result.document.export_to_markdown(),
+            "markdown": final_output,
             "tables": self._extract_tables(result),
-            "text": result.document.export_to_text(),
-            "metadata": {
-                "filename": Path(file_path).name,
-                "pages": len(result.document.pages) if hasattr(result.document, 'pages') else 1
-            }
+            "text": all_text,
+            "metadata": {"filename": Path(file_path).name}
         }
     
     def _extract_tables(self, result) -> list:

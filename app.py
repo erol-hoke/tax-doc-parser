@@ -3,7 +3,6 @@ import pandas as pd
 import tempfile
 import os
 
-st.warning("🚨 RUNNING FEATURE BRANCH VERSION v3 (OCR)")
 # Page config
 st.set_page_config(
     page_title="Tax Document Parser",

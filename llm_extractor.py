@@ -50,11 +50,13 @@ FIELDS TO EXTRACT:
 DOCUMENT TEXT:
 {text}
 
-INSTRUCTIONS:
-1. Extract ONLY the requested fields
-2. If a field is not found, use null
-3. For monetary values, include only the number (no $ or commas)
-4. For dates, use YYYY-MM-DD format
-5. Return ONLY valid JSON with the field names as keys
+CRITICAL RULES:
+- ONLY extract values that are EXPLICITLY written in the document
+- If a value is not clearly present, you MUST return null
+- DO NOT guess, calculate, or infer any values
+- DO NOT make up dates, numbers, or names
+- Copy values EXACTLY as they appear (including formatting)
+- For dates: copy exactly as shown (e.g., "06 April 2024" not reformatted)
+- For money: copy exactly as shown (e.g., "£1,234.56" or "1234.56")
 
 Return your response as a JSON object."""

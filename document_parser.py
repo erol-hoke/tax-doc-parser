@@ -4,6 +4,8 @@ from docling.datamodel.base_models import InputFormat
 from pathlib import Path
 import json
 
+print("🔥 LOADING DOCUMENT_PARSER.PY WITH OCR ENABLED 🔥")
+
 class TaxDocumentParser:
     def __init__(self):
         # Configure pipeline with OCR enabled

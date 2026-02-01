@@ -1,10 +1,23 @@
-from docling.document_converter import DocumentConverter
+from docling.document_converter import DocumentConverter, PdfFormatOption
+from docling.datamodel.pipeline_options import PdfPipelineOptions
+from docling.datamodel.base_models import InputFormat
 from pathlib import Path
 import json
 
 class TaxDocumentParser:
     def __init__(self):
-        self.converter = DocumentConverter()
+        # Configure pipeline with OCR enabled
+        pipeline_options = PdfPipelineOptions()
+        pipeline_options.do_ocr = True
+        pipeline_options.do_table_structure = True
+        
+        self.converter = DocumentConverter(
+            format_options={
+                InputFormat.PDF: PdfFormatOption(
+                    pipeline_options=pipeline_options
+                )
+            }
+        )
     
     def parse_document(self, file_path: str) -> dict:
         """Parse a document and return structured content."""
@@ -21,13 +34,15 @@ class TaxDocumentParser:
         }
     
     def _extract_tables(self, result) -> list:
-        """Extract all tables from the document."""
         tables = []
-        for idx, table in enumerate(result.document.tables):
-            df = table.export_to_dataframe()
-            tables.append({
-                "index": idx,
-                "data": df.to_dict('records'),
-                "html": table.export_to_html()
-            })
+        if hasattr(result.document, 'tables'):
+            for idx, table in enumerate(result.document.tables):
+                try:
+                    df = table.export_to_dataframe()
+                    tables.append({
+                        "index": idx,
+                        "data": df.to_dict('records'),
+                    })
+                except Exception:
+                    pass
         return tables
